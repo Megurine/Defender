@@ -3,4 +3,7 @@ Defender
 
 XNA Multi Game like "Forteresse" with MetalSlug style
 
-VS 2010
+Mégurine -
+
+Start : 30/09/2013
+Last edit : 09/10/2013
