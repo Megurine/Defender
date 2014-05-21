@@ -63,12 +63,44 @@ namespace ServerDefender
             set { hitboxY = value; }
         }
 
-        private double angle;
+        private float rotationHaut;
 
-        public double Angle
+        public float RotationHaut
         {
-            get { return angle; }
-            set { angle = value; }
+            get { return rotationHaut; }
+            set { rotationHaut = value; }
+        }
+
+        private int frameTextureHaut;
+
+        public int FrameTextureHaut
+        {
+            get { return frameTextureHaut; }
+            set { frameTextureHaut = value; }
+        }
+
+        private int frameTextureBas;
+
+        public int FrameTextureBas
+        {
+            get { return frameTextureBas; }
+            set { frameTextureBas = value; }
+        }
+
+        private int numeroTextureHaut;
+
+        public int NumeroTextureHaut
+        {
+            get { return numeroTextureHaut; }
+            set { numeroTextureHaut = value; }
+        }
+
+        private int numeroTextureBas;
+
+        public int NumeroTextureBas
+        {
+            get { return numeroTextureBas; }
+            set { numeroTextureBas = value; }
         }
 
         public Player(string pseudo, int numeroEquipe)
@@ -78,9 +110,11 @@ namespace ServerDefender
             this.tempconnec = 0;
             this.hitboxX = 100;
             this.hitboxY = 100;
-            this.Angle = 0;
+            this.RotationHaut = 0.0f;
+            this.frameTextureHaut = 0;
+            this.frameTextureBas = 0;
+            this.numeroTextureHaut = 0;
+            this.numeroTextureBas = 0;
         }
-
-
     }
 }

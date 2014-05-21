@@ -42,10 +42,10 @@ namespace Defender
         int numeroTextureBasAfkDroite;
         int numeroTextureHautAfkGauche;
         int numeroTextureHautAfkDroite;
-        int numeroTextureHaut;
-        int numeroTextureBas;
-        int frameTextureHaut;
-        int frameTextureBas;
+        public int numeroTextureHaut;
+        public int numeroTextureBas;
+        public int frameTextureHaut;
+        public int frameTextureBas;
         double firstGametimePourAnimation;
         double dernierGametimePourAnimationBas;
         double dernierGametimePourAnimationHaut;

@@ -12,7 +12,8 @@ namespace ServerDefender
         public static string[] inscrits;
         public static List<String> tempDeco = new List<String>();
 
-        public static List<int[]> CoordsCubes = new List<int[]>();
+        //public static List<int[]> CoordsCubes = new List<int[]>();
+        public static Cube[,] Cubes = new Cube[100,2000];
 
         public static ServerHandler server = new ServerHandler();
         public static bool serverstatus = false;
@@ -247,19 +248,14 @@ namespace ServerDefender
             //ThreadAfficherAction = 4;
         }
 
-        public static bool RemoveCube(int X, int Y)
+        public static void AddCube(int x, int y, int team)
         {
-            int i = 0;
-            bool trouver = false;
-            while (i < CoordsCubes.Count() && !trouver)
-            {
-                if (CoordsCubes[i][0] == X && CoordsCubes[i][1] == Y)
-                {
-                    CoordsCubes.Remove(CoordsCubes[i]);
-                }
-                i++;
-            }
-            return trouver;
+            Cubes[x,y] = new Cube(1, team);
+        }
+
+        public static void RemoveCube(int x, int y)
+        {
+            Cubes[x, y] = new Cube();
         }
 
         static void server_ReceivedTcp(object sender, PacketEventArgs e)
@@ -272,11 +268,7 @@ namespace ServerDefender
                 {
                     message = message.Substring(1);
                     string[] messages = message.Split(';');
-                    int[] cube = new int[3];
-                    cube[0] = int.Parse(messages[0]);
-                    cube[1] = int.Parse(messages[1]);
-                    cube[2] = int.Parse(messages[2]);
-                    CoordsCubes.Add(cube);
+                    AddCube(int.Parse(messages[0]), int.Parse(messages[1]), int.Parse(messages[2]));
                     foreach (ClientData client in server.Clients)
                     {
                         server.SendTcp(client, "A" + message);
@@ -311,14 +303,18 @@ namespace ServerDefender
                     string[] messages = message.Split(';');
                     ((Player)e.Client.ClientState).HitboxX = int.Parse(messages[1]);
                     ((Player)e.Client.ClientState).HitboxY = int.Parse(messages[2]);
-                    ((Player)e.Client.ClientState).Angle = double.Parse(messages[3]);
+                    ((Player)e.Client.ClientState).RotationHaut = float.Parse(messages[3]);
+                    ((Player)e.Client.ClientState).FrameTextureHaut = int.Parse(messages[4]);
+                    ((Player)e.Client.ClientState).FrameTextureBas = int.Parse(messages[5]);
+                    ((Player)e.Client.ClientState).NumeroTextureHaut = int.Parse(messages[6]);
+                    ((Player)e.Client.ClientState).NumeroTextureHaut = int.Parse(messages[7]);
 
                     foreach (ClientData client in server.Clients)
                     {
                         Player player = ((Player)client.ClientState); //envoi aux autres co avant
                         if (player.Pseudo != pseudo)
                         {
-                            server.SendUdp(client, "M" + pseudo + ";" + ((Player)e.Client.ClientState).HitboxX.ToString() + ";" + ((Player)e.Client.ClientState).HitboxY.ToString() + ";" + ((Player)e.Client.ClientState).Angle.ToString());
+                            server.SendUdp(client, "M" + pseudo + ";" + ((Player)e.Client.ClientState).HitboxX.ToString() + ";" + ((Player)e.Client.ClientState).HitboxY.ToString() + ";" + ((Player)e.Client.ClientState).RotationHaut.ToString() + ";" + ((Player)e.Client.ClientState).FrameTextureHaut.ToString() + ";" + ((Player)e.Client.ClientState).FrameTextureBas.ToString() + ";" + ((Player)e.Client.ClientState).NumeroTextureHaut.ToString() + ";" + ((Player)e.Client.ClientState).NumeroTextureBas.ToString());
                         }
                     }
 

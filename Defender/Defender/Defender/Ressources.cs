@@ -145,7 +145,7 @@ namespace Defender
             client.Disconnected += client_Disconnected;
             client.ReceivedTcp += client_ReceivedTCP;
             client.ReceivedUdp += client_ReceivedUDP;
-            nomClient = "darkexia";
+            nomClient = "megurine";
             mdpClient = "333666";
         }
 
@@ -252,7 +252,7 @@ namespace Defender
                 {
                     message = message.Substring(1);
                     string[] messages = message.Split(';');
-                    mouvementJoueur(messages[0], int.Parse(messages[1]), int.Parse(messages[2]), double.Parse(messages[3]));
+                    mouvementJoueur(messages[0], int.Parse(messages[1]), int.Parse(messages[2]), float.Parse(messages[3]), int.Parse(messages[4]), int.Parse(messages[5]), int.Parse(messages[6]), int.Parse(messages[7]));
                 }
                 else
                 {
@@ -261,12 +261,16 @@ namespace Defender
             }
         }
 
-        static public void mouvementJoueur(String pseudo, int newX, int newY, double newAngle)
+        static public void mouvementJoueur(String pseudo, int newX, int newY, float newRotationHaut, int newFrameTextureHaut, int newFrameTextureBas, int newNumeroTextureHaut, int newNumeroTextureBas)
         {
             Player player = Players.Find(p => p.nom == pseudo);
             player.Hitbox.X = newX;
             player.Hitbox.Y = newY;
-            player.angle = newAngle;
+            player.rotationHaut = newRotationHaut;
+            player.frameTextureHaut = newFrameTextureHaut;
+            player.frameTextureBas = newFrameTextureBas;
+            player.numeroTextureHaut = newNumeroTextureHaut;
+            player.numeroTextureBas = newNumeroTextureBas;
         }
 
         static public void connecterJoueur(int numeroEquipe, string pseudo)
@@ -301,7 +305,7 @@ namespace Defender
         {
             Player player = Players.Find(p => p.joueurLocal == true);
             nombrePacketEnvoyer++;
-            client.SendUdp("M" + player.nom + ";" + player.Hitbox.X.ToString() + ";" + player.Hitbox.Y.ToString() + ";" + player.angle.ToString());
+            client.SendUdp("M" + player.nom + ";" + player.Hitbox.X.ToString() + ";" + player.Hitbox.Y.ToString() + ";" + player.rotationHaut.ToString() + ";" + player.frameTextureHaut.ToString() + ";" + player.frameTextureBas.ToString() + ";" + player.numeroTextureHaut.ToString() + ";" + player.numeroTextureBas.ToString());
         }
 
         public static float calculerAngle(Point p1, Point p2, Point p3)

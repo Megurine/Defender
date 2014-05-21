@@ -112,12 +112,17 @@ namespace Defender
             if (posX < 0 || posY < 0) {}
             else
             {
-                if (!existCube((int)Math.Round(posX, 0), (int)Math.Round(posY, 0)))
-                {
-                    int lol = 0;
-                    if (byServer) { lol = 1; }
-                    this.CoordsCubesModifier.Enqueue(new int[] {1, (int)Math.Round(posX, 0), (int)Math.Round(posY, 0), numeroEquipe, lol});
-                }
+                //if (!existCube((int)Math.Round(posX, 0), (int)Math.Round(posY, 0)))
+                //{
+                    if (byServer)
+                    {
+                        this.CoordsCubesModifier.Enqueue(new int[] { 1, (int)Math.Round(posX, 0), (int)Math.Round(posY, 0), numeroEquipe});
+                    }
+                    else
+                    {
+                        Ressources.ajouterCube((int)Math.Round(posX, 0), (int)Math.Round(posY, 0), numeroEquipe);
+                    }
+                //}
             }
             
         }
@@ -145,12 +150,17 @@ namespace Defender
             if (posX < 0 || posY < 0) { }
             else
             {
-                if (existCube((int)Math.Round(posX, 0), (int)Math.Round(posY, 0)))
-                {
-                    int lol = 0;
-                    if (byServer) { lol = 1; }
-                    this.CoordsCubesModifier.Enqueue(new int[] {0, (int)Math.Round(posX, 0), (int)Math.Round(posY, 0), lol });
-                }
+                //if (existCube((int)Math.Round(posX, 0), (int)Math.Round(posY, 0)))
+                //{
+                    if (byServer)
+                    {
+                        this.CoordsCubesModifier.Enqueue(new int[] { 0, (int)Math.Round(posX, 0), (int)Math.Round(posY, 0)});
+                    }
+                    else
+                    {
+                        Ressources.retirerCube((int)Math.Round(posX, 0), (int)Math.Round(posY, 0));
+                    }
+                //}
             }
         }
 
@@ -170,28 +180,14 @@ namespace Defender
                 {
                     if (!existCube(cube[1], cube[2]))
                     {
-                        if (cube[4] == 0)
-                        {
-                            Ressources.ajouterCube(cube[1], cube[2], cube[3]);
-                        }
-                        else
-                        {
-                            CoordsCubes.Add(new int[] { cube[1], cube[2], cube[3] });
-                        }
+                        CoordsCubes.Add(new int[] { cube[1], cube[2], cube[3] });
                     }
                 }
                 else //Retirer
                 {
                     if (existCube(cube[1], cube[2]))
                     {
-                        if (cube[3] == 0)
-                        {
-                            Ressources.retirerCube(cube[1], cube[2]);
-                        }
-                        else
-                        {
-                            RemoveCube(cube[1], cube[2]);
-                        }
+                        RemoveCube(cube[1], cube[2]);
                     }
                 }
                 i++;

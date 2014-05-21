@@ -133,6 +133,7 @@ namespace Defender
                 if (this.Hitbox.Intersects(new Rectangle(xHitbot * Ressources.tailleCube, yHitbot * Ressources.tailleCube, Ressources.tailleCube, Ressources.tailleCube)))
                 {
                     collision = true;
+                    //ICI
                     Ressources.mapLocale.retirerCube(xHitbot * Ressources.tailleCube, yHitbot * Ressources.tailleCube, false);
                     this.porteeActuelle = this.porteeMax;
                 }
